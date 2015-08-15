@@ -59,8 +59,8 @@ void HashDictionary::insert(string lang_1, string lang_2) {
   if (dictionary[hash_1] != NULL) {
     delete dictionary[hash_1];
   }
-  dictionary[hash_1] = new HashEntry(key_1, lang_2);
-  dictionary[hash_2] = new HashEntry(key_2, lang_1);
+  dictionary[hash_1] = new HashEntry(key_1, lang_2, string("eng"));
+  dictionary[hash_2] = new HashEntry(key_2, lang_1, string("rus"));
 }
 
 int HashDictionary::hashWord(string word) {
@@ -76,4 +76,34 @@ int HashDictionary::hashWord(string word) {
   }
 
   return (result % DICT_SIZE);
+}
+
+string HashDictionary::translate(string sentense) {
+  string words;
+  /*words = (string *) malloc( sizeof(string) );
+
+  int word_count = 0;
+  int word_iter = 0;
+  for (int i = 0; i < sentense.length(); i++) {
+    cout << word_count << word_iter << i << ">" << sentense[i] << "<" << endl;
+    cout << typeof sentense[i] << endl;
+    if (sentense[i] == " ") {
+      words[word_count++][word_iter] = '\0';
+      words = (string *) realloc(words, sizeof(string) * word_count);
+      word_iter = 0;
+    } else {
+      words[word_count][word_iter++] = sentense[i];
+    }
+  }*/
+
+  // http://stackoverflow.com/questions/289347/using-strtok-with-a-stdstring
+  // words = strtok((char *) sentense, " ,.-");
+
+  // cout << "Words in sentense:" << endl;
+  // while (words != NULL) {
+  //   cout << "<< " << words << endl;
+  //   words = strtok(NULL, " ,.-");
+  // }
+
+  return sentense;
 }

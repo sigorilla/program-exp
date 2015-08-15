@@ -2,6 +2,7 @@
 #define HASHDICTIONARY_H
 
 #include "hashentry.h"
+#include <stdlib.h>
 #include <cstring>
 
 using namespace std;
@@ -15,6 +16,7 @@ class HashDictionary {
   ~HashDictionary();
   string get(string);
   void insert(string, string);
+  string translate(string);
   int DICT_SIZE;
  protected:
   int hashWord(string);

@@ -10,17 +10,18 @@ int main(int argc, char **argv) {
   cin >> N;
   HashDictionary dictionary(N * 4);
 
-  string key;
-  string value;
-  for (int i = 0; i < N; i++) {
-    cin >> key >> value;
-    dictionary.insert(key, value);
-  }
+  // string key;
+  // string value;
+  // for (int i = 0; i < N; i++) {
+  //   cin >> key >> value;
+  //   dictionary.insert(key, value);
+  // }
 
-  cout << "Find by key: ";
-  cin >> key;
-  // TODO: проверка на получение слова (NULL)
-  cout << dictionary.get(key) << endl;
+  // cout << "Find by key: ";
+  string sentense("Not or not.");
+  // TODO: read sentense with white-spaces
+  // cin >> sentense;
+  cout << dictionary.translate(sentense) << endl;
 
   // TODO: i18n текущего предложения
 
