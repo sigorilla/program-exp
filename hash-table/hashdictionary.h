@@ -4,6 +4,8 @@
 #include "hashentry.h"
 #include <stdlib.h>
 #include <cstring>
+#include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -20,6 +22,7 @@ class HashDictionary {
   int DICT_SIZE;
  protected:
   int hashWord(string);
+  vector<string> split(const string &, char);
 };
 
 #endif // HASHDICTIONARY_H
