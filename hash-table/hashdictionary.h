@@ -19,10 +19,9 @@ class HashDictionary {
   string get(string);
   void insert(string, string);
   string translate(string);
-  int DICT_SIZE;
  protected:
   int hashWord(string);
-  vector<string> split(const string &, char);
+  vector<string> split(string, char);
 };
 
 #endif // HASHDICTIONARY_H

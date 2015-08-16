@@ -1,18 +1,12 @@
 #include "hashdictionary.h"
 #include <iostream>
+#include "ctype.h"
+
+const int DICT_SIZE = 256;
 
 using namespace std;
 
 HashDictionary::HashDictionary() {
-  DICT_SIZE = 128;
-  dictionary = new HashEntry*[DICT_SIZE];
-  for (int i = 0; i < DICT_SIZE; i++) {
-    dictionary[i] = NULL;
-  }
-}
-
-HashDictionary::HashDictionary(int size) {
-  this->DICT_SIZE = size;
   dictionary = new HashEntry*[DICT_SIZE];
   for (int i = 0; i < DICT_SIZE; i++) {
     dictionary[i] = NULL;
@@ -35,7 +29,7 @@ string HashDictionary::get(string word) {
     hash = (hash + 1) % DICT_SIZE;
   }
   if (dictionary[hash] == NULL) {
-    return NULL;
+    return word;
   } else {
     return dictionary[hash]->getValue();
   }
@@ -65,33 +59,48 @@ void HashDictionary::insert(string lang_1, string lang_2) {
 
 int HashDictionary::hashWord(string word) {
   int result = 0;
+  int p = 73;
 
   for (int i = 0; i < word.length(); i++) {
-    int tmp = static_cast<int>(word[i]);
+    // int tmp = static_cast<int>(word[i]);
     // TODO: знаки препинания, использовать: http://www.cplusplus.com/reference/cctype/
     // if (!isalpha(tmp)) {
     //   continue;
     // }
-    result += static_cast<int>(tolower(tmp));
+    result += static_cast<int>(tolower(word[i])) * p;
+    p *= p;
   }
 
-  return (result % DICT_SIZE);
+  return abs(result) % DICT_SIZE;
 }
 
 string HashDictionary::translate(string sentense) {
+  string result = "";
   vector<string> words = split(sentense, ' ');
   for(int i = 0; i < words.size(); i++) {
-    cout << words[i] << endl;
+    // cout << words[i] << endl;
+    result += get(words[i]);
   }
-  return sentense;
+  return result;
 }
 
-vector<string> HashDictionary::split(const string &s, char delim) {
+vector<string> HashDictionary::split(string s, char delim) {
   vector<string> elems;
-  stringstream ss(s);
-  string item;
-  while (getline(ss, item, delim)) {
-    elems.push_back(item);
+  string tmp = "";
+  for (int i = 0; i < s.length(); i++) {
+    if (ispunct(s[i]) || isspace(s[i])) {
+      if (tmp != "") {
+        elems.push_back(tmp);
+      }
+      tmp = s[i];
+      elems.push_back(tmp);
+      tmp = "";
+    } else {
+      tmp += s[i];
+    }
+  }
+  if (tmp != "") {
+    elems.push_back(tmp);
   }
   return elems;
 }
